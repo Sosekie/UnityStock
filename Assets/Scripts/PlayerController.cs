@@ -44,7 +44,8 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         Crouch();
-        newJump();
+        NewJump();
+        Attack();
     }
 
     void Movement()
@@ -181,11 +182,11 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void newJump()
+    void NewJump()
     {
         if (isGround)
         {
-            extraJump = 1;
+            extraJump = 2;
         }
         if(Input.GetButtonDown("Jump") && extraJump > 0)
         {
@@ -198,6 +199,29 @@ public class PlayerController : MonoBehaviour
         //    rb.velocity = Vector2.up * jumpforce;//Vector2.up = new Vector2(0,1)
         //    anim.SetBool("jumping", true);
         //}
+    }
+
+    void Attack()
+    {
+        if (Input.GetButtonDown("Attack"))
+        {
+            anim.SetBool("flag", true);
+            //角色攻击
+            if (anim.GetBool("jumping") || anim.GetBool("falling"))
+            {
+                anim.SetBool("attack1", true);
+            }
+            else if(anim.GetBool("running") || anim.GetBool("idle"))
+            {
+                anim.SetBool("attack2", true);
+            }
+        }
+    }
+
+    void AttackStop()
+    {
+        anim.SetBool("attack1", false);
+        anim.SetBool("attack2", false);
     }
 
     void Restart()
