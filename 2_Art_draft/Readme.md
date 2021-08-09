@@ -1,0 +1,1 @@
+The folder which is for art draft storing.
